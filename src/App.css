@@ -2,3 +2,14 @@
  @font-face { font-family: source; src: url(./fonts/SourceSans3-Bold.ttf); font-weight: 300; }
   @font-face { font-family: source; src: url(./fonts/SourceSans3-Light.ttf); font-weight: 100; }
  *{margin: 0; box-sizing: border-box; }
+ li {
+  list-style: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 24px;
+}
+
+li:hover {
+    transition: 0.2s;
+  background-color: #f1f5f9;
+}

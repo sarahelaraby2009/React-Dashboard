@@ -1,4 +1,3 @@
-import Typography from "@mui/material/Typography"
 import { NotificationsNone, Language, Settings } from '@mui/icons-material';
 import { Badge, IconButton } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
@@ -12,7 +11,7 @@ export default function TopBar() {
         }}>
 
             <div>
-                <img src="./logo.png" style={{ height: "70px" }} alt="logo of admin panel" />
+                <img src="./logo.png" style={{ height: "40px" }} alt="logo of admin panel" />
             </div>
 
             <div style={{display:"flex"}}>
