@@ -1,14 +1,31 @@
 import { Box } from "@mui/material"
 import { DataGrid } from '@mui/x-data-grid';
+import type { GridRenderCellParams } from "@mui/x-data-grid";
 import Avatar from "@mui/material/Avatar";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
 import Paper from '@mui/material/Paper';
+import axios from 'axios'
+import { useEffect,useState } from "react";
+import { Link } from "react-router-dom";
 
-const columns = [
+
+interface user {
+    id:number
+    username:string
+    email:string
+    status:string
+    transaction:number
+    avatar:string
+}
+
+
+
+const paginationModel = { page: 0, pageSize: 8 };
+export default function UserList() {
+    const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'username', headerName: 'Username', width: 200,renderCell:(params) => (
+    { field: 'username', headerName: 'Username', width: 200,renderCell:(params:GridRenderCellParams<user>) => (
         <Box sx={{display:"flex",alignItems:"center",gap:3}}>
             <Avatar sx={{width:25,height:25}} src={params.row.avatar} />
             {params.row.username}
@@ -18,7 +35,6 @@ const columns = [
     {
         field: 'status',
         headerName: 'Status',
-        type: 'number',
         width: 130,
         textAlign:"left"
     },
@@ -30,41 +46,58 @@ const columns = [
         width: 160,
         
     },
-        { field: 'action', headerName: 'Action', width: 130,renderCell:(params) =>(
+        { field: 'action', headerName: 'Action', width: 130,renderCell:(params:GridRenderCellParams<user>) =>(
             <Box sx={{display:"flex",gap:3,padding:2}}>
+                <Link to={`/users/${params.row.id}`}>
                 <EditIcon sx={{color:"#add8e6",cursor:"pointer"}}/>
-                <DeleteOutlineIcon sx={{color:"red",cursor:"pointer"}}/>
+                </Link>
+                
+                
+                
+                <DeleteOutlineIcon  sx={{color:"red",cursor:"pointer"}} onClick={() =>handleDelete(params.row.id)}/>
             </Box>
         ) },
 
 ];
+    const [userDetails,setUserDetails]=useState<user[]>([])
+    const [loading,setLoading]=useState(true)
+    const handleDelete= (id:number) => {
+        const updatedData=userDetails.filter((u) =>u.id!==id)
+        setUserDetails(updatedData)
+   
+}
+    useEffect(() => {
+         axios.get('https://dashboard-api-production-7f98.up.railway.app/userDetails')
+            .then(function (response) {
+                // handle success
+                const data = response.data
+                setUserDetails(response.data)
+                setLoading(false)
 
-const rows = [
-    { id: 1, username: 'Snow', email: 'Jon@gmail.com', status: 'Active',transaction:120,avatar: "https://i.pravatar.cc/150?img=1", },
-    { id: 2, username: 'Lannister', email: 'Cersei', status: 'Active',transaction:647,avatar: "https://i.pravatar.cc/150?img=2", },
-    { id: 3, username: 'Lannister', email: 'Jaime', status: "Inactive",transaction:1223,avatar: "https://i.pravatar.cc/150?img=3", },
-    { id: 4, username: 'Stark', email: 'Arya', status: 'Active',transaction:122440,avatar: "https://i.pravatar.cc/150?img=4", },
-    { id: 5, username: 'Targaryen', email: 'Daenerys', status: 'Active',transaction:554 ,avatar: "https://i.pravatar.cc/150?img=5",},
-    { id: 6, username: 'Melisandre', email: null, status: "Inactive",transaction:432,avatar: "https://i.pravatar.cc/150?img=6", },
-    { id: 7, username: 'Clifford', email: 'Ferrara', status: 'Active',transaction:230,avatar: "https://i.pravatar.cc/150?img=7", },
-    { id: 8, username: 'Frances', email: 'Rossini', status: "Inactive",transaction:400 ,avatar: "https://i.pravatar.cc/150?img=8",},
-    { id: 9, username: 'Roxie', email: 'Harvey', status: 'Active',transaction:200 ,avatar: "https://i.pravatar.cc/150?img=9",},
-];
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+                setLoading(false)
 
-const paginationModel = { page: 0, pageSize: 5 };
-export default function UserList() {
+            }) 
+    } ,[])
     return (
         <Box sx={{padding:5}}>
             <Paper sx={{ height: 400, width: '100%' }}>
-            <DataGrid
-                rows={rows}
+             
+                <DataGrid
+                rows={userDetails}
                 disableRowSelectionOnClick
                 columns={columns}
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
                 sx={{ border: 0 }}
+                loading={loading}
+                
             />
+          
         </Paper>
         </Box>
         
