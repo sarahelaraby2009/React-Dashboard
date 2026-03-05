@@ -6,6 +6,7 @@ import SideBar from './components/sideBar.js'
 import Home from './Pages/Home.js'
 import { Routes,Route } from 'react-router-dom'
 import UserList from './Pages/userlist.js'
+import UserDetails from './Pages/userDetails.js'
 
   const theme = createTheme({ typography: { fontFamily: "source",fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -22,6 +23,9 @@ import UserList from './Pages/userlist.js'
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/users' element={<UserList/>}/>
+              <Route path='/users/:id' element={<UserDetails/>}/>
+              
+              
                
             </Routes>
            
