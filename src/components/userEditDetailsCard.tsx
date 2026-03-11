@@ -27,26 +27,28 @@ export default function UserEditDetailsCard() {
         phoneInput: "",
         addressInput: ""
     })
-    const[loading,setLoading]=useState(true)
-    const[success,setSuccess]=useState(false)
-    const[updating,setUpdating]=useState(false)
-   
-  
+    const [loading, setLoading] = useState(true)
+    const [success, setSuccess] = useState(false)
+    const [updating, setUpdating] = useState(false)
 
 
 
-  const handleClose = () => {
-    setSuccess(false)
-  };
-    const handleSubmit = async(e: React.FormEvent) => {
+
+
+    const handleClose = () => {
+        setSuccess(false)
+    };
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setUpdating(true)
-       await axios.patch(`https://dashboard-api-production-7f98.up.railway.app/userDetails/${id}`,
-        {username: input.nameInput,
-        email: input.emailInput,
-        phone: input.phoneInput,
-        address: input.addressInput,}
-       )
+        await axios.patch(`https://dashboard-api-production-7f98.up.railway.app/userDetails/${id}`,
+            {
+                username: input.nameInput,
+                email: input.emailInput,
+                phone: input.phoneInput,
+                address: input.addressInput,
+            }
+        )
         setSuccess(true)
         setUpdating(false)
 
@@ -80,39 +82,39 @@ export default function UserEditDetailsCard() {
     return (
         <Box sx={{ boxShadow: "0px 5px 15px rgba(0,0,0,0.2)", padding: 3 }}>
             <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Edit</Typography>
-            {loading? <Skeleton variant="rectangular" width={400} height={500} /> :  <Box sx={{ display: "flex", justifyContent: "space-between", padding: 5, gap: 5 }}>
+            {loading ? <Skeleton variant="rectangular" width={400} height={500} /> : <Box sx={{ display: "flex", justifyContent: "space-between", padding: 5, gap: 5 }}>
                 <form onSubmit={handleSubmit} style={{ padding: "2px", marginTop: "5px" }}>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
                         <label>Username</label>
-                        <input value={input.nameInput} onChange={(e) => { setinput({ ...input, nameInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text"  />
+                        <input value={input.nameInput} onChange={(e) => { setinput({ ...input, nameInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
                         <label>Email</label>
-                        <input value={input.emailInput} onChange={(e) => { setinput({ ...input, emailInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text"  />
+                        <input value={input.emailInput} onChange={(e) => { setinput({ ...input, emailInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
                         <label>Phone</label>
-                        <input value={input.phoneInput} onChange={(e) => { setinput({ ...input, phoneInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text"  />
+                        <input value={input.phoneInput} onChange={(e) => { setinput({ ...input, phoneInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
                         <label>Adderss</label>
-                        <input value={input.addressInput} onChange={(e) => { setinput({ ...input, addressInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text"  />
+                        <input value={input.addressInput} onChange={(e) => { setinput({ ...input, addressInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
                     </Box>
-                    <Button disabled={updating} type="submit" variant="contained">{updating?"updating" : "Update"}</Button>
+                    <Button disabled={updating} type="submit" variant="contained">{updating ? "updating" : "Update"}</Button>
                 </form>
                 <Box>
                     <img style={{ width: "200px", borderRadius: "20px" }} src={userDetails?.avatar} alt="user profile photo" />
                 </Box>
-                 <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={5000}
-        open={success}
-        onClose={handleClose}
-        message="Data has been successfully updated"
- 
-      />
-            </Box> }
-          
+                <Snackbar
+                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                    autoHideDuration={5000}
+                    open={success}
+                    onClose={handleClose}
+                    message="Data has been successfully updated"
+
+                />
+            </Box>}
+
 
 
         </Box>

@@ -9,12 +9,13 @@ interface ChartProps {
     title:string,
     dataKey:string,
     data:DataProp[]
+    height?:number
 }
-export default function Chart({title,dataKey,data}:ChartProps) {
+export default function Chart({title,dataKey,data,height=300}:ChartProps) {
     return (
-        <Box sx={{ backgroundColor: "#ffff", marginTop: 2, width: "100%",padding:3 }}>
+        <Box sx={{ backgroundColor: "#ffff", marginTop: 2, width:"100%",maxWidth:400,padding:3,boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",borderRadius:10 }}>
             <Typography sx={{fontWeight:600,padding:3}}>{title}</Typography>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={height}>
                 <LineChart
                    
                     data={data}

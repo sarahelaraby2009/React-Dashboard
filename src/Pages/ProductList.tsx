@@ -17,48 +17,53 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 
-interface user {
+interface product {
     id: number
-    username: string
-    email: string
+    name: string
+    stock: number
     status: string
-    transaction: number
+    price: number
+    category:string
+    sales:number
     avatar: string
+    
 }
 
 
 
 const paginationModel = { page: 0, pageSize: 8 };
 
-export default function UserList() {
+export default function ProductList() {
     const [selectedId, setSelectedId] = useState<number | null>(null)
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
-            field: 'username', headerName: 'Username', width: 200, renderCell: (params: GridRenderCellParams<user>) => (
+            field: 'name', headerName: 'Name', width: 200, renderCell: (params: GridRenderCellParams<product>) => (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
                     <Avatar sx={{ width: 25, height: 25 }} src={params.row.avatar} />
-                    {params.row.username}
+                    {params.row.name}
                 </Box>
             )
         },
-        { field: 'email', headerName: 'Email', width: 200 },
+        { field: 'stock', headerName: 'Stock', width: 200 },
+     
         {
-            field: 'status',
-            headerName: 'Status',
-            width: 130,
-            textAlign: "left"
+            field: 'price',
+            headerName: 'Price volume',
+            sortable: true,
+            width: 160,
+
         },
+        
         {
-            field: 'transaction',
-            headerName: 'Transaction volume',
-            description: 'This column has a value getter and is not sortable.',
+            field: 'category',
+            headerName: 'Category',
             sortable: false,
             width: 160,
 
         },
         {
-            field: 'action', headerName: 'Action', width: 130, renderCell: (params: GridRenderCellParams<user>) => (
+            field: 'action', headerName: 'Action', width: 130, renderCell: (params: GridRenderCellParams<product>) => (
                 <Box sx={{ display: "flex", gap: 3, padding: 2 }}>
                     <Link to={`/products/${params.row.id}`}>
                         <EditIcon sx={{ color: "#add8e6", cursor: "pointer" }} />
@@ -75,14 +80,14 @@ export default function UserList() {
         },
 
     ];
-    const [userDetails, setUserDetails] = useState<user[]>([])
+    const [productDetails, setProductDetails] = useState<product[]>([])
     const [loading, setLoading] = useState(true)
 
     const handleDelete = (id: number) => {
-        axios.delete(`https://dashboard-api-production-7f98.up.railway.app/userDetails/${id}`)
+        axios.delete(`https://dashboard-api-production-7f98.up.railway.app/products/${id}`)
             .then(() => {
-                const updatedData = userDetails.filter((u) => u.id !== id)
-                setUserDetails(updatedData)
+                const updatedData = productDetails.filter((u) => u.id !== id)
+                setProductDetails(updatedData)
                 handleClose()
             })
 
@@ -100,11 +105,11 @@ export default function UserList() {
         setOpen(false);
     };
     useEffect(() => {
-        axios.get('https://dashboard-api-production-7f98.up.railway.app/userDetails')
+        axios.get('https://dashboard-api-production-7f98.up.railway.app/products')
             .then(function (response) {
                 // handle success
                 const data = response.data
-                setUserDetails(data)
+                setProductDetails(data)
                 setLoading(false)
 
             })
@@ -118,8 +123,8 @@ export default function UserList() {
     return (
         <Box sx={{ padding: 5 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", margin: 3 }}>
-                <Typography fontWeight={600} fontSize={25} sx={{ marginBottom: 3 }}>Users List</Typography>
-                <Link to={"/users/createUser"}>
+                <Typography fontWeight={600} fontSize={25} sx={{ marginBottom: 3 }}>Products List</Typography>
+                <Link to={"/products/createProduct"}>
                     <Button sx={{ fontSize: 12 }} variant="contained">create <AddCircleOutlineIcon /></Button>
                 </Link>
 
@@ -129,11 +134,11 @@ export default function UserList() {
             <Paper sx={{ height: 400, width: '100%' }}>
 
                 <DataGrid
-                    rows={userDetails}
+                    rows={productDetails}
                     disableRowSelectionOnClick
                     columns={columns}
                     initialState={{ pagination: { paginationModel } }}
-                    pageSizeOptions={[5, 10,20]}
+                    pageSizeOptions={[5, 10]}
                     checkboxSelection
                     sx={{ border: 0 }}
                     loading={loading}
@@ -148,11 +153,11 @@ export default function UserList() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"User Delete Confirmation"}
+                    {"Product Delete Confirmation"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete this member
+                        Are you sure you want to delete this product
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

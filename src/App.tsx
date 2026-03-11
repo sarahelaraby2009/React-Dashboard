@@ -7,6 +7,10 @@ import Home from './Pages/Home.js'
 import { Routes,Route } from 'react-router-dom'
 import UserList from './Pages/userlist.js'
 import UserDetails from './Pages/userDetails.js'
+import ProductList from './Pages/ProductList.js'
+import CreateUser from './Pages/createUser.js'
+import CreateProduct from './Pages/createProduct.js'
+import ProductDetails from './Pages/productDetails.js'
 
   const theme = createTheme({ typography: { fontFamily: "source",fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -23,7 +27,13 @@ import UserDetails from './Pages/userDetails.js'
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/users' element={<UserList/>}/>
+              <Route path='/products' element={<ProductList/>}/>
               <Route path='/users/:id' element={<UserDetails/>}/>
+              <Route path='/products/:id' element={<ProductDetails/>}/>
+              <Route path='/users/createUser' element={<CreateUser/>}/>
+              <Route path='/products/createProduct' element={<CreateProduct/>}/>
+              
+              
               
               
                
