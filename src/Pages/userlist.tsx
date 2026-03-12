@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Paper from '@mui/material/Paper';
 import axios from 'axios'
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -26,11 +26,13 @@ interface user {
     avatar: string
 }
 
-
+interface props{
+    searchQuery:string
+}
 
 const paginationModel = { page: 0, pageSize: 8 };
 
-export default function UserList() {
+export default function UserList({searchQuery}:props) {
     const [selectedId, setSelectedId] = useState<number | null>(null)
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
@@ -60,7 +62,7 @@ export default function UserList() {
         {
             field: 'action', headerName: 'Action', width: 130, renderCell: (params: GridRenderCellParams<user>) => (
                 <Box sx={{ display: "flex", gap: 3, padding: 2 }}>
-                    <Link to={`/products/${params.row.id}`}>
+                    <Link to={`/users/${params.row.id}`}>
                         <EditIcon sx={{ color: "#add8e6", cursor: "pointer" }} />
                     </Link>
 
@@ -77,7 +79,12 @@ export default function UserList() {
     ];
     const [userDetails, setUserDetails] = useState<user[]>([])
     const [loading, setLoading] = useState(true)
-
+    const filteredUsers=useMemo(()=>{
+        if(!searchQuery) return userDetails
+      return  userDetails.filter((user)=>
+    user.username.toLowerCase().includes(searchQuery.toLowerCase()))},[userDetails,searchQuery]
+    )
+    
     const handleDelete = (id: number) => {
         axios.delete(`https://dashboard-api-production-7f98.up.railway.app/userDetails/${id}`)
             .then(() => {
@@ -129,7 +136,7 @@ export default function UserList() {
             <Paper sx={{ height: 400, width: '100%' }}>
 
                 <DataGrid
-                    rows={userDetails}
+                    rows={filteredUsers}
                     disableRowSelectionOnClick
                     columns={columns}
                     initialState={{ pagination: { paginationModel } }}

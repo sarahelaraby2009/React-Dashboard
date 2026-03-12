@@ -29,7 +29,7 @@ axios.get('https://dashboard-api-production-7f98.up.railway.app/members')
     },[])
     return (
         
-        <Box sx={{ padding: 3, marginTop: 5,boxShadow: "0px 5px 15px rgba(0,0,0,0.2)", height: 400,
+        <Box sx={{ padding: 3, marginTop: 5,boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
   overflow: "auto",scrollbarWidth:"thin" }}>
             <Typography sx={{ fontSize: 20 ,fontWeight:600 }}>New Join Members</Typography>
             {memberData.map((m:members) => (

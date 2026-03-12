@@ -79,7 +79,7 @@ export default function CreateUser() {
             <Typography fontWeight={600} fontSize={25} sx={{ marginBottom: 3 }}>New User</Typography>
             <Box>
                 <form onSubmit={handleCreateUser} style={{ padding: "5px" }}>
-                    <Box sx={{ display: "flex", gap: "30px" }}>
+                    <Box sx={{ display: "flex", gap: "30px",flexDirection:{xs:"column",md:"row"} }}>
                         <Box>
                             <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
                                 <label style={{ color: "#888" }}>Username</label>

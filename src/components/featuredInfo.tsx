@@ -44,7 +44,7 @@ export default function FeaturedInfo() {
 
 
     return (
-        <Box sx={{ display: "flex", gap: 2, justifyContent: "space-around", alignItems: "center",padding:3 }}>
+        <Box sx={{ display: "flex", gap: 2, flexWrap:"wrap",justifyContent: "center", alignItems: "center",padding:3 }}>
             {featureData.map((d, index) => {
                 const isPositive = d.ratio > 0
 
@@ -54,9 +54,9 @@ export default function FeaturedInfo() {
                         sx={{
                             boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
                             p: 3,
-                            width: 250,
+                        flex: { xs: "1 1 100%", sm: "1 1 45%", md: "1 1 30%" },
                             borderRadius: 3,
-                            margin: "10px"
+                           
                         }}
                     >
                         <Typography sx={{ fontSize: 20, color: "#888" }}>

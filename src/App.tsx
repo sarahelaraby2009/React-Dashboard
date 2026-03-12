@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css' 
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import TopBar from './components/topBar.js'
@@ -15,19 +15,29 @@ import ProductDetails from './Pages/productDetails.js'
   const theme = createTheme({ typography: { fontFamily: "source",fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700, }, }) 
-
+   
 
   function App() { 
+     
+    const [search,setSearch]=useState("")
+    const[debounce,setDebounce]=useState(search)
+    useEffect(()=>{
+      const timerDebounce=setTimeout(()=>{
+        setDebounce(search)
+      },300)
+      return ()=>clearTimeout(timerDebounce)
+    },[search])
+    
     return (
     <ThemeProvider theme={theme}>
-         <TopBar/>
+         <TopBar onSearch={setSearch}/>
          <div style={{display:"flex"}}>
            <SideBar/>
            <div style={{flex:1,marginLeft:"8px"}}>
             <Routes>
               <Route path='/' element={<Home/>}/>
-              <Route path='/users' element={<UserList/>}/>
-              <Route path='/products' element={<ProductList/>}/>
+              <Route path='/users' element={<UserList searchQuery={debounce}/>}/>
+              <Route path='/products' element={<ProductList searchQuery={debounce}/>}/>
               <Route path='/users/:id' element={<UserDetails/>}/>
               <Route path='/products/:id' element={<ProductDetails/>}/>
               <Route path='/users/createUser' element={<CreateUser/>}/>

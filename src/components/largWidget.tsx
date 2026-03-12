@@ -34,39 +34,101 @@ export default function LargWidget() {
             })
     }, [])
     return (
-        <Box sx={{ padding: 3, marginTop: 5, boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",height: "100%",
-    display: "flex",
-    flexDirection: "column" }}>
-            <Typography sx={{ fontSize: 20 ,fontWeight:600 }}>Latest transactins</Typography>
-            <TableContainer sx={{ flex: 1 }} component={Paper}>
-                <Table sx={{ minWidth: 650,height:"100%" }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell sx={{fontWeight:600}}>customer</TableCell>
-                            <TableCell sx={{fontWeight:600}} align="left">Date</TableCell>
-                            <TableCell sx={{fontWeight:600}} align="left">Amount</TableCell>
-                            <TableCell sx={{fontWeight:600}} align="left">Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {transactionData.map((t: transactions) => (
-                            <TableRow
-                                key={t.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        <Box sx={{
+            padding: 3, marginTop: 5, boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
+            display: "flex",
+            flexDirection: "column"
+        }}>
+            <Typography sx={{ fontSize: 20, fontWeight: 600 }}>Latest transactins</Typography>
+            <Box sx={{ display: { xs: "block", md: "none" } }}>
+                {transactionData.map((t: transactions) => (
+                    <Box key={t.id}
+                        sx={{
+                            p: 2,
+                            borderRadius: 3,
+                            boxShadow: "0px 2px 10px rgba(0,0,0,0.1)",
+                            mb: 2,
+                            backgroundColor: "white"
+                        }}
+                    >
+                        <Typography sx={{ fontWeight: 600 }}>
+                            {t.customer}
+                        </Typography>
+
+                        <Typography sx={{ fontSize: 13, color: "#777" }}>
+                            {t.date}
+                        </Typography>
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                mt: 1,
+                                 alignItems: "center",
+                            }}
+                        >
+                            <Typography sx={{ fontWeight: 600 }}>
+                                ${t.amount}
+                            </Typography>
+
+                            <Typography
+                                sx={{
+                                    px: 1.5,
+                                    py: 0.5,
+                                    borderRadius: 2,
+                                    fontSize: 12,
+                                    color:
+                                        t.status === "Approved"
+                                            ? "green"
+                                            : t.status === "Declined"
+                                                ? "red"
+                                                : "blue",
+                                    backgroundColor:
+                                        t.status === "Approved"
+                                            ? "#e5faf2"
+                                            : t.status === "Declined"
+                                                ? "#fff0f1"
+                                                : "#ebf1fe"
+                                }}
                             >
-                                <TableCell sx={{fontWeight:600}} component="th" scope="row">
-                                    {t.customer}
-                                </TableCell>
-                                <TableCell align="left">{t.date}</TableCell>
-                                <TableCell align="left">{t.amount}</TableCell>
-                                <TableCell > <Typography sx={{padding:1,width:80, fontSize:12,textAlign:"c",color:t.status=="Approved" ? "green" : t.status==="Declined" ? "red" : "blue",backgroundColor:t.status=="Approved" ? "#e5faf2" : t.status==="Declined" ? "#fff0f1" : "#ebf1fe",borderRadius:3}} align="left">
-                                    {t.status}
-                                    </Typography></TableCell>
+                                {t.status}
+                            </Typography>
+                        </Box>
+                    </Box>))}
+            </Box>
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+
+                <TableContainer sx={{ flex: 1 }} component={Paper}>
+                    <Table sx={{ minWidth: 650, height: "100%" }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell sx={{ fontWeight: 600 }}>customer</TableCell>
+                                <TableCell sx={{ fontWeight: 600 }} align="left">Date</TableCell>
+                                <TableCell sx={{ fontWeight: 600 }} align="left">Amount</TableCell>
+                                <TableCell sx={{ fontWeight: 600 }} align="left">Status</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {transactionData.map((t: transactions) => (
+                                <TableRow
+                                    key={t.id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell sx={{ fontWeight: 600 }} component="th" scope="row">
+                                        {t.customer}
+                                    </TableCell>
+                                    <TableCell align="left">{t.date}</TableCell>
+                                    <TableCell sx={{ fontWeight: 600 }} align="left">${t.amount}</TableCell>
+                                    <TableCell > <Typography sx={{ padding: 1, width: 80, fontSize: 12, textAlign: "center", color: t.status == "Approved" ? "green" : t.status === "Declined" ? "red" : "blue", backgroundColor: t.status == "Approved" ? "#e5faf2" : t.status === "Declined" ? "#fff0f1" : "#ebf1fe", borderRadius: 3 }} align="left">
+                                        {t.status}
+                                    </Typography></TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+
         </Box>
     )
 }
