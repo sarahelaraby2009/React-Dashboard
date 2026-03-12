@@ -4,7 +4,14 @@ import App from './App.jsx'
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
 
-const theme = createTheme(); 
+const theme = createTheme({
+  typography: {
+    fontFamily: "source, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
+  },
+}); 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>

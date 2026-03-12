@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import './App.css' 
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
 import TopBar from './components/topBar.js'
 import SideBar from './components/sideBar.js'
 import Home from './Pages/Home.js'
@@ -13,12 +11,7 @@ import CreateUser from './Pages/createUser.js'
 import CreateProduct from './Pages/createProduct.js'
 import ProductDetails from './Pages/productDetails.js'
 
-  const theme = createTheme({ typography: { fontFamily: "source",fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700, }, }) 
-   
-
-  function App() { 
+function App() { 
      
     const [search,setSearch]=useState("")
     const[debounce,setDebounce]=useState(search)
@@ -30,8 +23,7 @@ import ProductDetails from './Pages/productDetails.js'
     },[search])
     
     return (
-    <ThemeProvider theme={theme}>
-         <CssBaseline/>
+    <>
          <TopBar onSearch={setSearch}/>
          <div style={{display:"flex",width:"100%",minHeight:"calc(100vh - 80px)",overflow:"hidden"}}>
            <SideBar/>
@@ -55,7 +47,7 @@ import ProductDetails from './Pages/productDetails.js'
          
          </div>
         
-          </ThemeProvider>
-
-    ) } 
-  export default App
+    </>
+    )
+}
+export default App

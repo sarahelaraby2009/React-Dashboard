@@ -33,19 +33,24 @@ export default function TopBar({ onSearch }: any) {
             <TextField
                 placeholder="Search users, products..."
                 size="small"
+                variant="outlined"
                 value={search}
                 onChange={(e) => {
                     setSearch(e.target.value)
                     onSearch(e.target.value)
                 }}
                 sx={{
-                    order: { xs: 3, md: 2 },
-                    width: { xs: "calc(100% - 50px)", sm: "250px", md: "350px" },
+                    flex: { xs: "1 1 calc(100% - 60px)", sm: "0 0 auto", md: "0 0 auto" },
+                    width: { sm: "250px", md: "350px" },
                     mt: { xs: 1, md: 0 },
                     ml: { xs: 1, md: 0 },
                     backgroundColor: "#f5f6fa",
-                    borderRadius: 10,
-                    minWidth: "200px"
+                    borderRadius: "10px",
+                    minWidth: "200px",
+                    order: { xs: 3, md: 2 },
+                    "& .MuiOutlinedInput-root": {
+                        borderRadius: "10px",
+                    }
                 }}
                 InputProps={{
                     startAdornment: (
