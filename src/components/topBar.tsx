@@ -26,7 +26,7 @@ export default function TopBar({ onSearch }: any) {
         >
 
             <div>
-                <img src="./logo.png" style={{ height: "40px" }} alt="logo of admin panel" />
+                <img src="/logo.png" style={{ height: "40px" }} alt="logo of admin panel" />
             </div>
 
             <TextField
@@ -76,7 +76,7 @@ export default function TopBar({ onSearch }: any) {
                     <Settings />
                 </IconButton>
                 <div>
-                    <Avatar alt="Remy Sharp" src="./user.webp" />
+                    <Avatar alt="Remy Sharp" src="/user.webp" />
 
                 </div>
 
