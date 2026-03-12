@@ -31,9 +31,9 @@ import ProductDetails from './Pages/productDetails.js'
     return (
     <ThemeProvider theme={theme}>
          <TopBar onSearch={setSearch}/>
-         <div style={{display:"flex"}}>
+         <div style={{display:"flex",width:"100%"}}>
            <SideBar/>
-           <div style={{flex:1,marginLeft:"8px"}}>
+           <div style={{flex:1,marginLeft:"8px",width:"100%"}}>
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/users' element={<UserList searchQuery={debounce}/>}/>
