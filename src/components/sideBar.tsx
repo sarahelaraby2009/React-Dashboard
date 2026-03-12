@@ -104,10 +104,10 @@ const toggleDrawer = (newOpen:any) => () => {
             isMobile?(
                 <>
                  <IconButton  sx={{
-    position: "fixed",
-    top: 30,
+    position: "absolute",
+    top: 12,
     left: 10,
-    zIndex: 1200
+    zIndex: 1100
   }} onClick={toggleDrawer(true)}>
                 <Menu/>
                </IconButton>

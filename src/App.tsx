@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css' 
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
 import TopBar from './components/topBar.js'
 import SideBar from './components/sideBar.js'
 import Home from './Pages/Home.js'
@@ -30,10 +31,11 @@ import ProductDetails from './Pages/productDetails.js'
     
     return (
     <ThemeProvider theme={theme}>
+         <CssBaseline/>
          <TopBar onSearch={setSearch}/>
-         <div style={{display:"flex",width:"100%"}}>
+         <div style={{display:"flex",width:"100%",minHeight:"calc(100vh - 80px)",overflow:"hidden"}}>
            <SideBar/>
-           <div style={{flex:1,marginLeft:"8px",width:"100%"}}>
+           <div style={{flex:1,marginLeft:"8px",width:"100%",overflowY:"auto"}}>
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/users' element={<UserList searchQuery={debounce}/>}/>

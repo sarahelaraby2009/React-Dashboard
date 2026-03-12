@@ -16,12 +16,13 @@ export default function TopBar({ onSearch }: any) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 width: "100%",
+                gap: { xs: 0.5, sm: 1 },
+                minHeight: "64px",
                 backgroundColor: "white",
                 boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
                 position: "sticky",
                 top: 0,
                 zIndex: 1000,
-                
             }}
         >
 
@@ -39,10 +40,12 @@ export default function TopBar({ onSearch }: any) {
                 }}
                 sx={{
                     order: { xs: 3, md: 2 },
-                    width: { xs: "100%", sm: "250px", md: "350px" },
+                    width: { xs: "calc(100% - 50px)", sm: "250px", md: "350px" },
                     mt: { xs: 1, md: 0 },
+                    ml: { xs: 1, md: 0 },
                     backgroundColor: "#f5f6fa",
-                    borderRadius: 10
+                    borderRadius: 10,
+                    minWidth: "200px"
                 }}
                 InputProps={{
                     startAdornment: (
