@@ -12,7 +12,7 @@ A modern, responsive admin dashboard built with **React**, **TypeScript**, and *
 
 ## 🌐 Live Demo
 
-**[View Live Demo](https://react-admin-dashboard-henna-eta.vercel.app/)** 
+**[View Live Demo](https://teal-youtiao-a3ab73.netlify.app/)** 
 
 ---
 
