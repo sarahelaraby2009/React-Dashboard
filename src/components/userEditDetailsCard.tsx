@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material"
+import { Box, Typography, Button, useTheme } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
@@ -19,6 +19,7 @@ interface user {
 }
 
 export default function UserEditDetailsCard() {
+    const theme = useTheme();
     const { id } = useParams()
     const [userDetails, setUserDetails] = useState<user | null>(null)
     const [input, setinput] = useState({
@@ -80,25 +81,45 @@ export default function UserEditDetailsCard() {
     }, [id])
 
     return (
-        <Box sx={{ boxShadow: "0px 5px 15px rgba(0,0,0,0.2)", padding: 3 }}>
-            <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Edit</Typography>
+        <Box sx={{ boxShadow: "0px 5px 15px rgba(0,0,0,0.2)", padding: 3, backgroundColor: theme.palette.background.paper }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 20, color: theme.palette.text.primary }}>Edit</Typography>
             {loading ? <Skeleton variant="rectangular" width={400} height={500} /> : <Box sx={{ display: "flex", justifyContent: "space-between", padding: 5, gap: 5 }}>
                 <form onSubmit={handleSubmit} style={{ padding: "2px", marginTop: "5px" }}>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
-                        <label>Username</label>
-                        <input value={input.nameInput} onChange={(e) => { setinput({ ...input, nameInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
+                        <label style={{ color: theme.palette.text.primary }}>Username</label>
+                        <input value={input.nameInput} onChange={(e) => { setinput({ ...input, nameInput: e.target.value }) }} style={{ 
+                            backgroundColor: theme.palette.background.default,
+                            color: theme.palette.text.primary,
+                            border: "none", 
+                            borderBottom: `1px ${theme.palette.divider} solid` 
+                        }} type="text" />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
-                        <label>Email</label>
-                        <input value={input.emailInput} onChange={(e) => { setinput({ ...input, emailInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
+                        <label style={{ color: theme.palette.text.primary }}>Email</label>
+                        <input value={input.emailInput} onChange={(e) => { setinput({ ...input, emailInput: e.target.value }) }} style={{ 
+                            backgroundColor: theme.palette.background.default,
+                            color: theme.palette.text.primary,
+                            border: "none", 
+                            borderBottom: `1px ${theme.palette.divider} solid` 
+                        }} type="text" />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
-                        <label>Phone</label>
-                        <input value={input.phoneInput} onChange={(e) => { setinput({ ...input, phoneInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
+                        <label style={{ color: theme.palette.text.primary }}>Phone</label>
+                        <input value={input.phoneInput} onChange={(e) => { setinput({ ...input, phoneInput: e.target.value }) }} style={{ 
+                            backgroundColor: theme.palette.background.default,
+                            color: theme.palette.text.primary,
+                            border: "none", 
+                            borderBottom: `1px ${theme.palette.divider} solid` 
+                        }} type="text" />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 4 }}>
-                        <label>Adderss</label>
-                        <input value={input.addressInput} onChange={(e) => { setinput({ ...input, addressInput: e.target.value }) }} style={{ border: "none", borderBottom: "1px #888 solid" }} type="text" />
+                        <label style={{ color: theme.palette.text.primary }}>Adderss</label>
+                        <input value={input.addressInput} onChange={(e) => { setinput({ ...input, addressInput: e.target.value }) }} style={{ 
+                            backgroundColor: theme.palette.background.default,
+                            color: theme.palette.text.primary,
+                            border: "none", 
+                            borderBottom: `1px ${theme.palette.divider} solid` 
+                        }} type="text" />
                     </Box>
                     <Button disabled={updating} type="submit" variant="contained">{updating ? "updating" : "Update"}</Button>
                 </form>

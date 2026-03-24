@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,6 +18,7 @@ interface transactions {
     status: string
 }
 export default function LargWidget() {
+    const theme = useTheme();
     const [transactionData, setTransactionData] = useState([])
     useEffect(() => {
         axios.get('https://dashboard-api-production-7f98.up.railway.app/transactions')
@@ -33,11 +34,24 @@ export default function LargWidget() {
 
             })
     }, [])
+
+    const getStatusColor = (status: string) => {
+        switch(status) {
+            case "Approved":
+                return { color: "green", backgroundColor: theme.palette.mode === "light" ? "#e5faf2" : "#1b4d3e" };
+            case "Declined":
+                return { color: "red", backgroundColor: theme.palette.mode === "light" ? "#fff0f1" : "#4d1b24" };
+            default:
+                return { color: "blue", backgroundColor: theme.palette.mode === "light" ? "#ebf1fe" : "#1b2d4d" };
+        }
+    }
+
     return (
         <Box sx={{
             padding: 3, marginTop: 5, boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
             display: "flex",
-            flexDirection: "column"
+            flexDirection: "column",
+            backgroundColor: theme.palette.background.paper
         }}>
             <Typography sx={{ fontSize: 20, fontWeight: 600 }}>Latest transactins</Typography>
             <Box sx={{ display: { xs: "block", md: "none" } }}>
@@ -48,14 +62,14 @@ export default function LargWidget() {
                             borderRadius: 3,
                             boxShadow: "0px 2px 10px rgba(0,0,0,0.1)",
                             mb: 2,
-                            backgroundColor: "white"
+                            backgroundColor: theme.palette.background.paper
                         }}
                     >
                         <Typography sx={{ fontWeight: 600 }}>
                             {t.customer}
                         </Typography>
 
-                        <Typography sx={{ fontSize: 13, color: "#777" }}>
+                        <Typography sx={{ fontSize: 13, color: theme.palette.text.secondary }}>
                             {t.date}
                         </Typography>
 
@@ -77,18 +91,7 @@ export default function LargWidget() {
                                     py: 0.5,
                                     borderRadius: 2,
                                     fontSize: 12,
-                                    color:
-                                        t.status === "Approved"
-                                            ? "green"
-                                            : t.status === "Declined"
-                                                ? "red"
-                                                : "blue",
-                                    backgroundColor:
-                                        t.status === "Approved"
-                                            ? "#e5faf2"
-                                            : t.status === "Declined"
-                                                ? "#fff0f1"
-                                                : "#ebf1fe"
+                                    ...getStatusColor(t.status)
                                 }}
                             >
                                 {t.status}
@@ -119,7 +122,7 @@ export default function LargWidget() {
                                     </TableCell>
                                     <TableCell align="left">{t.date}</TableCell>
                                     <TableCell sx={{ fontWeight: 600 }} align="left">${t.amount}</TableCell>
-                                    <TableCell > <Typography sx={{ padding: 1, width: 80, fontSize: 12, textAlign: "center", color: t.status == "Approved" ? "green" : t.status === "Declined" ? "red" : "blue", backgroundColor: t.status == "Approved" ? "#e5faf2" : t.status === "Declined" ? "#fff0f1" : "#ebf1fe", borderRadius: 3 }} align="left">
+                                    <TableCell> <Typography sx={{ padding: 1, width: 80, fontSize: 12, textAlign: "center", ...getStatusColor(t.status), borderRadius: 3 }} align="left">
                                         {t.status}
                                     </Typography></TableCell>
                                 </TableRow>

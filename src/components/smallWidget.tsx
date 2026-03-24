@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -12,6 +12,7 @@ interface members{
     img:string
 }
 export default function SmallWidget() {
+    const theme = useTheme();
     const[memberData,setMemberData]=useState([])
     useEffect(() => {
 axios.get('https://dashboard-api-production-7f98.up.railway.app/members')
@@ -29,17 +30,23 @@ axios.get('https://dashboard-api-production-7f98.up.railway.app/members')
     },[])
     return (
         
-        <Box sx={{ padding: 3, marginTop: 5,boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
-  overflow: "auto",scrollbarWidth:"thin" }}>
-            <Typography sx={{ fontSize: 20 ,fontWeight:600 }}>New Join Members</Typography>
+        <Box sx={{ 
+            padding: 3, 
+            marginTop: 5,
+            boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
+            overflow: "auto",
+            scrollbarWidth:"thin",
+            backgroundColor: theme.palette.background.paper
+        }}>
+            <Typography sx={{ fontSize: 20, fontWeight:600, color: theme.palette.text.primary }}>New Join Members</Typography>
             {memberData.map((m:members) => (
               <Box key={m.id} sx={{ padding: 1, display: "flex", alignItems: "center",gap:1 }}>
                 <Avatar alt="Remy Sharp" src={m.img} />
                 <Box sx={{ padding: 1 }}>
-                    <Typography sx={{ fontSize: 16 }}>{m.name}</Typography>
-                    <Typography sx={{ fontSize: 14, color: "#888" }}>{m.title}</Typography>
+                    <Typography sx={{ fontSize: 16, color: theme.palette.text.primary }}>{m.name}</Typography>
+                    <Typography sx={{ fontSize: 14, color: theme.palette.text.secondary }}>{m.title}</Typography>
                 </Box>
-                <Button sx={{backgroundColor:"#acacac",height:22,fontSize:12}} variant="contained" endIcon={<RemoveRedEyeIcon />}>
+                <Button sx={{backgroundColor: theme.palette.primary.main, height:22, fontSize:12}} variant="contained" endIcon={<RemoveRedEyeIcon />}>
                     Display
                 </Button>
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
@@ -54,6 +54,7 @@ interface user {
 }
 
 export default function UserDetailsCard() {
+    const theme = useTheme();
     const {id}=useParams()
      const [userDetails,setUserDetails]=useState <user |null>(null)
  
@@ -81,7 +82,7 @@ if(!userDetails){
   )
 }
   return (
-    <Card sx={{ width:"300px" }}>
+    <Card sx={{ width:"300px", backgroundColor: theme.palette.background.paper }}>
       <CardHeader
       sx={{fontSize:20}}
         avatar={
@@ -92,38 +93,39 @@ if(!userDetails){
         subheader={userDetails?.job}
          titleTypographyProps={{
     fontSize: 18,
-    fontWeight: 600
+    fontWeight: 600,
+    color: theme.palette.text.primary
   }}
   subheaderTypographyProps={{
     fontSize: 14,
-    color: "gray"
+    color: theme.palette.text.secondary
   }}
       />
       <Box sx={{padding:3}}>
-        <Typography sx={{fontWeight:600,color:"#888",fontSize:20,marginBottom:2}}>Account Details</Typography>
+        <Typography sx={{fontWeight:600,color: theme.palette.text.secondary,fontSize:20,marginBottom:2}}>Account Details</Typography>
         <Box sx={{display:"flex",gap:1,alignItems:"center"}}>
-          <Person sx={{color:"#888",fontSize:13,fontWeight:300}}/>
-          <Typography sx={{color:"#888",fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.username}</Typography>
+          <Person sx={{color: theme.palette.text.secondary,fontSize:13,fontWeight:300}}/>
+          <Typography sx={{color: theme.palette.text.secondary,fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.username}</Typography>
         </Box>
         <Box sx={{display:"flex",gap:1,alignItems:"center"}}>
-          <CalendarMonth sx={{color:"#888",fontSize:13,fontWeight:300}}/>
-          <Typography sx={{color:"#888",fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails.birtDate}</Typography>
+          <CalendarMonth sx={{color: theme.palette.text.secondary,fontSize:13,fontWeight:300}}/>
+          <Typography sx={{color: theme.palette.text.secondary,fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails.birtDate}</Typography>
         </Box>
        
       </Box>
       <Box sx={{padding:3}}>
-        <Typography sx={{fontWeight:600,color:"#888",fontSize:20,marginBottom:2}}>Contact</Typography>
+        <Typography sx={{fontWeight:600,color: theme.palette.text.secondary,fontSize:20,marginBottom:2}}>Contact</Typography>
         <Box sx={{display:"flex",gap:1,alignItems:"center"}}>
-          <PhoneAndroid sx={{color:"#888",fontSize:13,fontWeight:300}}/>
-          <Typography sx={{color:"#888",fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.phone}</Typography>
+          <PhoneAndroid sx={{color: theme.palette.text.secondary,fontSize:13,fontWeight:300}}/>
+          <Typography sx={{color: theme.palette.text.secondary,fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.phone}</Typography>
         </Box>
         <Box sx={{display:"flex",gap:1,alignItems:"center"}}>
-          <Mail sx={{color:"#888",fontSize:13,fontWeight:300}}/>
-          <Typography sx={{color:"#888",fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.email}</Typography>
+          <Mail sx={{color: theme.palette.text.secondary,fontSize:13,fontWeight:300}}/>
+          <Typography sx={{color: theme.palette.text.secondary,fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.email}</Typography>
         </Box>
         <Box sx={{display:"flex",gap:1,alignItems:"center"}}>
-          <LocationOn sx={{color:"#888",fontSize:13,fontWeight:300}}/>
-          <Typography sx={{color:"#888",fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.address}</Typography>
+          <LocationOn sx={{color: theme.palette.text.secondary,fontSize:13,fontWeight:300}}/>
+          <Typography sx={{color: theme.palette.text.secondary,fontSize:15,fontWeight:300,marginBottom:2}}>{userDetails?.address}</Typography>
         </Box>
        
       </Box>

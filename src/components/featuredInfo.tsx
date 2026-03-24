@@ -1,7 +1,8 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, useTheme } from "@mui/material";
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 
 export default function FeaturedInfo() {
+    const theme = useTheme();
     interface Info {
         amount: number,
         ratio: number
@@ -56,10 +57,10 @@ export default function FeaturedInfo() {
                             p: 3,
                         flex: { xs: "1 1 100%", sm: "1 1 45%", md: "1 1 30%" },
                             borderRadius: 3,
-                           
+                            backgroundColor: theme.palette.background.paper,
                         }}
                     >
-                        <Typography sx={{ fontSize: 20, color: "#888" }}>
+                        <Typography sx={{ fontSize: 20, color: theme.palette.text.secondary }}>
                             {d.title}
                         </Typography>
 
@@ -69,7 +70,7 @@ export default function FeaturedInfo() {
                             justifyContent: "space-between",
                             mt: 1
                         }}>
-                            <Typography sx={{ fontSize: 22, fontWeight: "bold" }}>
+                            <Typography sx={{ fontSize: 22, fontWeight: "bold", color: theme.palette.text.primary }}>
                                 ${d.amount}
                             </Typography>
 
@@ -89,7 +90,7 @@ export default function FeaturedInfo() {
                             </Box>
                         </Box>
 
-                        <Typography sx={{ fontSize: 12, color: "#aaa", mt: 1 }}>
+                        <Typography sx={{ fontSize: 12, color: theme.palette.text.secondary, mt: 1 }}>
                             Compared to last month
                         </Typography>
                     </Box>
