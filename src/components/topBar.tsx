@@ -1,12 +1,20 @@
 import { NotificationsNone, Language, Settings, Search } from '@mui/icons-material';
 import { Badge, IconButton, Box, TextField, InputAdornment } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
+import Switch from '@mui/material/Switch';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useState } from 'react';
 interface TopBarProps {
     onSearch: (value: string) => void
+    mode: "light" | "dark"
+    toggleTheme: () => void
+    
 }
-export default function TopBar({ onSearch }: any) {
+export default function TopBar({ onSearch, mode, toggleTheme }: TopBarProps) {
     const [search, setSearch] = useState("")
+    const label = { inputProps: { 'aria-label': 'Color switch demo' } };
+
     return (
         <Box
             sx={{
@@ -18,7 +26,7 @@ export default function TopBar({ onSearch }: any) {
                 width: "100%",
                 gap: { xs: 0.5, sm: 1 },
                 minHeight: "64px",
-                backgroundColor: "white",
+                backgroundColor: (theme) => theme.palette.background.default,
                 boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
                 position: "sticky",
                 top: 0,
@@ -44,7 +52,7 @@ export default function TopBar({ onSearch }: any) {
                     width: { sm: "250px", md: "350px" },
                     mt: { xs: 1, md: 0 },
                     ml: { xs: 1, md: 0 },
-                    backgroundColor: "#f5f6fa",
+                    backgroundColor: (theme) => theme.palette.background.paper,
                     borderRadius: "10px",
                     minWidth: "200px",
                     order: { xs: 3, md: 2 },
@@ -68,6 +76,14 @@ export default function TopBar({ onSearch }: any) {
                     order: { xs: 2, md: 3 }
                 }}
             >
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <LightModeIcon />
+
+                    <Switch checked={mode === "dark"} onChange={toggleTheme} />
+
+                    <DarkModeIcon />
+                </Box>
+
                 <IconButton sx={{ p: { xs: 0.5, sm: 1 } }}>
                     <Badge badgeContent={2} color="error">
                         <NotificationsNone />
@@ -75,12 +91,12 @@ export default function TopBar({ onSearch }: any) {
                 </IconButton>
 
 
-                <IconButton sx={{ display: { xs: "none", sm: "flex" }, p: { xs: 0.5, sm: 1} }}>
+                <IconButton sx={{ display: { xs: "none", sm: "flex" }, p: { xs: 0.5, sm: 1 } }}>
                     <Badge badgeContent={2} color="error">
                         <Language />
                     </Badge>
                 </IconButton>
-                <IconButton sx={{ p: { xs: 0.5, sm: 1}, display: { xs: "none", md: "flex" } }}>
+                <IconButton sx={{ p: { xs: 0.5, sm: 1 }, display: { xs: "none", md: "flex" } }}>
                     <Settings />
                 </IconButton>
                 <div>

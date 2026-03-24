@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css' 
 import TopBar from './components/topBar.js'
 import SideBar from './components/sideBar.js'
@@ -10,11 +10,15 @@ import ProductList from './Pages/ProductList.js'
 import CreateUser from './Pages/createUser.js'
 import CreateProduct from './Pages/createProduct.js'
 import ProductDetails from './Pages/productDetails.js'
+import { ThemeProvider, CssBaseline  } from '@mui/material';
+import useThemeMode from './hooks/ThemeHook.js'
+
 
 function App() { 
-     
     const [search,setSearch]=useState("")
     const[debounce,setDebounce]=useState(search)
+    const {mode,theme,toggleTheme}=useThemeMode()
+
     useEffect(()=>{
       const timerDebounce=setTimeout(()=>{
         setDebounce(search)
@@ -22,9 +26,12 @@ function App() {
       return ()=>clearTimeout(timerDebounce)
     },[search])
     
+   
     return (
-    <>
-         <TopBar onSearch={setSearch}/>
+    <>  
+    <ThemeProvider theme={theme} >
+      <CssBaseline/>
+ <TopBar mode={mode} toggleTheme={toggleTheme} onSearch={setSearch}/>
          <div style={{display:"flex",width:"100%",minHeight:"calc(100vh - 80px)",overflow:"hidden"}}>
            <SideBar/>
            <div style={{flex:1,marginLeft:"8px",width:"100%",overflowY:"auto"}}>
@@ -46,6 +53,8 @@ function App() {
            </div>
          
          </div>
+        
+    </ThemeProvider>
         
     </>
     )
